@@ -1,6 +1,10 @@
+## rust
+
 ```
 curl https://sh.rustup.rs -sSf | sh
 ```
+
+## PATH
 
 ```
 source ~/.zsh_profile
