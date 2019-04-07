@@ -1,5 +1,5 @@
 [package]
-name = "rust-wasm-vanilla"
+name = "rust-wasm-vue"
 version = "0.1.0"
 authors = ["mashi07 <shima.trends@gmail.com>"]
 edition = "2018"
