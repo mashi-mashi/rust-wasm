@@ -18,7 +18,7 @@ rustup install nightly
 rustup target add wasm32-unknown-unknown --toolchain nightly
 ```
 
-## build
+## compile
 
 ```
 rustc +nightly --target wasm32-unknown-unknown -O src/lib.rs --crate-type=cdylib
