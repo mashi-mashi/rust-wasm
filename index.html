@@ -1,16 +1,31 @@
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
+<html>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.min.js"></script>
+  <body>
+    <div id="vue_rust">
+      <div>
+        <p>{{ sum }}</p>
+        <button v-on:click="fetchWasm()">sum</button>
+      </div>
+    </div>
+
     <script>
-      fetch('./lib.wasm')
-        .then(response => response.arrayBuffer())
-        .then(bytes => WebAssembly.instantiate(bytes, {}))
-        .then(results => {
-          const instance = results.instance;
-          console.log(instance.exports.sum(2, 3));
-        });
+      var vue_rust = new Vue({
+        el: '#vue_rust',
+        data: {
+          sum: 0
+        },
+        methods: {
+          fetchWasm: function() {
+            fetch('./lib.wasm')
+              .then(response => response.arrayBuffer())
+              .then(bytes => WebAssembly.instantiate(bytes, {}))
+              .then(results => {
+                const instance = results.instance;
+                this.sum = instance.exports.sum(2, 3);
+              });
+          }
+        }
+      });
     </script>
-  </head>
-  <body></body>
+  </body>
 </html>
