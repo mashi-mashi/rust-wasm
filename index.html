@@ -3,26 +3,35 @@
   <body>
     <div id="vue_rust">
       <div>
-        <p>{{ sum }}</p>
-        <button v-on:click="fetchWasm()">sum</button>
+        <input v-model="base" />
+        <input v-model="addend" />
+        <p>base : {{ base }}</p>
+        <p>addend : {{ addend }}</p>
+        <p>sum : {{ sum }}</p>
+        <button v-on:click="calcSum()">sum</button>
       </div>
     </div>
 
     <script>
-      var vue_rust = new Vue({
+      const vue_rust = new Vue({
         el: '#vue_rust',
         data: {
+          instance: '',
+          base: 0,
+          addend: 0,
           sum: 0
         },
+        created: function() {
+          fetch('./lib.wasm')
+            .then(response => response.arrayBuffer())
+            .then(bytes => WebAssembly.instantiate(bytes, {}))
+            .then(results => {
+              this.instance = results.instance;
+            });
+        },
         methods: {
-          fetchWasm: function() {
-            fetch('./lib.wasm')
-              .then(response => response.arrayBuffer())
-              .then(bytes => WebAssembly.instantiate(bytes, {}))
-              .then(results => {
-                const instance = results.instance;
-                this.sum = instance.exports.sum(2, 3);
-              });
+          calcSum: function() {
+            this.sum = this.instance.exports.sum(this.base, this.addend);
           }
         }
       });
