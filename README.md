@@ -23,3 +23,9 @@ rustup target add wasm32-unknown-unknown --toolchain nightly
 ```
 rustc +nightly --target wasm32-unknown-unknown -O src/lib.rs --crate-type=cdylib
 ```
+
+## cargo build
+
+```
+cargo +nightly build --target wasm32-unknown-unknown
+```

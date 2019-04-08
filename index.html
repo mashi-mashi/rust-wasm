@@ -22,7 +22,7 @@
           sum: 0
         },
         created: function() {
-          fetch('./lib.wasm')
+          fetch('./target/wasm32-unknown-unknown/debug/rust_wasm_vue.wasm')
             .then(response => response.arrayBuffer())
             .then(bytes => WebAssembly.instantiate(bytes, {}))
             .then(results => {
